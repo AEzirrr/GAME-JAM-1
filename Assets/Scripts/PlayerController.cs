@@ -10,15 +10,19 @@ public class PlayerController : MonoBehaviour
     private Vector2 move;
 
     public KeyCode jumpKey = KeyCode.Space;
+    public KeyCode slashKey = KeyCode.J;
+    
     public float jumpForce = 7f;
     public float airMultiplier = 5f;
     public float jumpCooldown;
     public float groundDrag = 5f;
-    public float raycastHeight = 1f;
+    public float raycastHeight  = 1f;
 
     private Rigidbody rb;
 
     private Animator playerAnimation;
+
+    public GameObject slashEffect;
 
     bool grounded;
     bool readyToJump = true;
@@ -28,7 +32,7 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         move = context.ReadValue<Vector2>();
-        Debug.Log("Move input: " + move);
+        //Debug.Log("Move input: " + move);
     }
 
     // Start is called before the first frame update
@@ -41,7 +45,16 @@ public class PlayerController : MonoBehaviour
 
         if (playerAnimation == null)
         {
-            Debug.LogError("Animator component not found on " + gameObject.name);
+            //Debug.LogError("Animator component not found on " + gameObject.name);
+        }
+
+        if (slashEffect == null)
+        {
+            Debug.LogError("Slash effect game object not assigned in " + gameObject.name);
+        }
+        else
+        {
+            slashEffect.SetActive(false); // Ensure the slash effect is initially inactive
         }
     }
 
@@ -62,7 +75,7 @@ public class PlayerController : MonoBehaviour
             {
                 playerAnimation.SetBool("isRunning", true);
                 playerAnimation.SetBool("Jumped", false);
-                Debug.Log("Run animation triggered!");
+                //Debug.Log("Run animation triggered!");
             }
         }
         else
@@ -71,7 +84,7 @@ public class PlayerController : MonoBehaviour
             {
                 playerAnimation.SetBool("isRunning", false);
                 playerAnimation.SetBool("Jumped", false);
-                Debug.Log("Idle animation triggered!");
+                //Debug.Log("Idle animation triggered!");
             }
         }
 
@@ -80,6 +93,12 @@ public class PlayerController : MonoBehaviour
             
             Jump();
  
+        }
+
+        if (Input.GetKeyDown(slashKey))
+        {
+            Debug.Log("hatdog");
+            ActivateSlashEffect();
         }
 
         if (grounded)
@@ -126,5 +145,26 @@ public class PlayerController : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }
+
+    private void ActivateSlashEffect()
+    {
+        if (slashEffect != null)
+        {
+            slashEffect.SetActive(true);
+            Debug.Log("Slash effect activated!");
+
+            // Optionally, you can deactivate the slash effect after a certain duration
+            Invoke(nameof(DeactivateSlashEffect), 0.5f); // Deactivates after 0.5 seconds, adjust as needed
+        }
+    }
+
+    private void DeactivateSlashEffect()
+    {
+        if (slashEffect != null)
+        {
+            slashEffect.SetActive(false);
+            Debug.Log("Slash effect deactivated!");
+        }
     }
 }
