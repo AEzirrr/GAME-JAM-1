@@ -6,20 +6,15 @@ public class RootsDestroyer : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collider Triggered: " + other.gameObject.name);
-
-        if (other.CompareTag("Root"))
+        // Check if the collider that triggered this event is the player's slash effect
+        if (other.gameObject.CompareTag("SlashEffect"))
         {
-            Debug.Log("Root detected: " + other.gameObject.name);
-            DestroyRoot(other.gameObject);
+            DestroyRoot();
         }
     }
 
-    private void DestroyRoot(GameObject rootPart)
+    private void DestroyRoot()
     {
-        Transform rootParent = rootPart.transform.root;
-        Debug.Log("Root Parent: " + rootParent.gameObject.name);
-        Destroy(rootParent.gameObject);
-        Debug.Log("Root Destroyed!");
+        gameObject.SetActive(false);
     }
 }

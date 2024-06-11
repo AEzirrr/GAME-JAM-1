@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement")]
     public float moveSpeed;
+    public float waterMoveSpeed;
     public float rotationSpeed;
 
     public float groundDrag;
@@ -31,15 +32,25 @@ public class PlayerMovement : MonoBehaviour
     [Header("Ground Check")]
     public float playerHeight = 2f;
     public LayerMask whatIsGround;
+    public LayerMask water;
+    public LayerMask enemy;
     bool grounded;
 
     public Transform orientation;
+    public Transform slashPosition;
 
     [Header("Raycast")]
     public Transform raycastOrigin; // Custom raycast origin
 
     [Header("Attack")]
     public GameObject slashEffect;
+
+    [SerializeField] private AudioClip slashSFX;
+    [SerializeField] private AudioSource runningSFX;
+    [SerializeField] private AudioClip jumpSFX;
+
+    private float defaultMoveSpeed;
+
 
     float horizontalInput;
     float verticalInput;
@@ -58,6 +69,8 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true; // Ensure readyToJump is true at start
         playerAnimation = GetComponent<Animator>();
 
+        defaultMoveSpeed = moveSpeed;
+
         if (slashEffect == null)
         {
             Debug.LogError("Slash effect game object not assigned in " + gameObject.name);
@@ -72,14 +85,26 @@ public class PlayerMovement : MonoBehaviour
     {
         // Use custom raycast origin if set, otherwise default to player's position
         Vector3 rayOrigin = raycastOrigin ? raycastOrigin.position : transform.position;
-        grounded = Physics.Raycast(rayOrigin, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        grounded = Physics.Raycast(rayOrigin, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround | enemy);
+        bool inWater = Physics.Raycast(rayOrigin, Vector3.down, playerHeight * 0.5f + 0.2f, water);
 
         // Debugging ground detection
         Debug.DrawRay(rayOrigin, Vector3.down * (playerHeight * 0.5f + 0.2f), grounded ? Color.green : Color.red);
         //Debug.Log("Grounded: " + grounded);
         //Debug.Log("Ready to Jump: " + readyToJump);
 
+        if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) && grounded)
+        {
+            runningSFX.enabled = true;
+        }
+        else
+        {
+            runningSFX.enabled = false;
+        }
+  
+
         MyInput();
+
         SpeedControl();
 
         bool isMoving = moveDirection.magnitude > 0.1f;
@@ -111,14 +136,17 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(slashKey) && readyToAttack)
         {
             ActivateSlashEffect();
+            SFXManager.instance.PlaySfxClip(slashSFX, transform, .5f);
         }
 
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
             Jump();
+            SFXManager.instance.PlaySfxClip(jumpSFX, transform, .1f);
             playerAnimation.SetBool("Jumped", true);
             Invoke(nameof(ResetJump), jumpCooldown);
+
         }
 
         if (grounded)
@@ -128,6 +156,15 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             rb.drag = 0;
+        }
+
+        if (inWater)
+        {
+            defaultMoveSpeed = waterMoveSpeed; // Adjust move speed in water
+        }
+        else
+        {
+            defaultMoveSpeed = moveSpeed; // Reset move speed when out of water
         }
     }
 
@@ -157,11 +194,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (grounded)
         {
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * defaultMoveSpeed * 10f, ForceMode.Force);
         }
         else if (!grounded)
         {
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * defaultMoveSpeed * 10f * airMultiplier, ForceMode.Force);
         }
     }
 
@@ -169,9 +206,9 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        if (flatVel.magnitude > moveSpeed)
+        if (flatVel.magnitude > defaultMoveSpeed)
         {
-            Vector3 limitedVel = flatVel.normalized * moveSpeed;
+            Vector3 limitedVel = flatVel.normalized * defaultMoveSpeed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
     }
@@ -188,35 +225,33 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void ActivateSlashEffect()
+{
+    if (slashEffect != null && orientation != null && slashPosition != null)
     {
-        if (slashEffect != null && orientation != null)
-        {
-            // Calculate the position of the slash effect in front of the player
-            Vector3 slashPosition = transform.position + orientation.forward * 2f; // Adjust 2f as needed for distance
+        // Set the position of the slash effect relative to the slashPosition
+        slashEffect.transform.position = slashPosition.position;
 
-            // Set the position of the slash effect
-            slashEffect.transform.position = slashPosition;
+        // Set the rotation of the slash effect to match the player's orientation
+        slashEffect.transform.rotation = Quaternion.LookRotation(orientation.forward);
 
-            // Set the rotation of the slash effect to match the player's orientation
-            slashEffect.transform.rotation = Quaternion.LookRotation(orientation.forward);
+        // Activate the slash effect
+        slashEffect.SetActive(true);
+        Debug.Log("Slash effect activated!");
 
-            // Activate the slash effect
-            slashEffect.SetActive(true);
-            Debug.Log("Slash effect activated!");
+        // Optionally, you can deactivate the slash effect after a certain duration
+        Invoke(nameof(DeactivateSlashEffect), 0.5f); // Deactivates after 0.5 seconds, adjust as needed
 
-            // Optionally, you can deactivate the slash effect after a certain duration
-            Invoke(nameof(DeactivateSlashEffect), 0.5f); // Deactivates after 0.5 seconds, adjust as needed
-
-            // Set the cooldown
-            readyToAttack = false;
-            nextAttackTime = Time.time + attackCooldown;
-            Invoke(nameof(ResetAttack), attackCooldown);
-        }
-        else
-        {
-            Debug.LogError("Slash effect or orientation transform not assigned!");
-        }
+        // Set the cooldown
+        readyToAttack = false;
+        nextAttackTime = Time.time + attackCooldown;
+        Invoke(nameof(ResetAttack), attackCooldown);
     }
+    else
+    {
+        Debug.LogError("Slash effect, orientation transform, or slash position not assigned!");
+    }
+}
+
 
     private void DeactivateSlashEffect()
     {
@@ -231,4 +266,6 @@ public class PlayerMovement : MonoBehaviour
     {
         readyToAttack = true;
     }
+
+
 }
