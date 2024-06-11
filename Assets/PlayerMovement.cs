@@ -13,6 +13,11 @@ public class PlayerMovement : MonoBehaviour
 
     public float groundDrag;
 
+    [Header("Attack")]
+    public float attackCooldown = 1f; // Duration of attack cooldown
+    private bool readyToAttack = true; // Whether the player can attack
+    private float nextAttackTime = 0f; // Next time the player can attack
+
     [Header("Jumping")]
     public float jumpForce;
     public float jumpCooldown;
@@ -21,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("KeyBinds")]
     public KeyCode jumpKey = KeyCode.Space;
+    public KeyCode slashKey = KeyCode.J;
 
     [Header("Ground Check")]
     public float playerHeight = 2f;
@@ -31,6 +37,9 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Raycast")]
     public Transform raycastOrigin; // Custom raycast origin
+
+    [Header("Attack")]
+    public GameObject slashEffect;
 
     float horizontalInput;
     float verticalInput;
@@ -48,6 +57,15 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
         readyToJump = true; // Ensure readyToJump is true at start
         playerAnimation = GetComponent<Animator>();
+
+        if (slashEffect == null)
+        {
+            Debug.LogError("Slash effect game object not assigned in " + gameObject.name);
+        }
+        else
+        {
+            slashEffect.SetActive(false); // Ensure the slash effect is initially inactive
+        }
     }
 
     private void Update()
@@ -58,8 +76,8 @@ public class PlayerMovement : MonoBehaviour
 
         // Debugging ground detection
         Debug.DrawRay(rayOrigin, Vector3.down * (playerHeight * 0.5f + 0.2f), grounded ? Color.green : Color.red);
-        Debug.Log("Grounded: " + grounded);
-        Debug.Log("Ready to Jump: " + readyToJump);
+        //Debug.Log("Grounded: " + grounded);
+        //Debug.Log("Ready to Jump: " + readyToJump);
 
         MyInput();
         SpeedControl();
@@ -72,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 playerAnimation.SetBool("isRunning", true);
                 playerAnimation.SetBool("Jumped", false);
-                Debug.Log("Run animation triggered!");
+                //Debug.Log("Run animation triggered!");
             }
         }
         else
@@ -81,8 +99,18 @@ public class PlayerMovement : MonoBehaviour
             {
                 playerAnimation.SetBool("isRunning", false);
                 playerAnimation.SetBool("Jumped", false);
-                Debug.Log("Idle animation triggered!");
+                //Debug.Log("Idle animation triggered!");
             }
+        }
+
+        if (slashEffect != null && playerModel != null)
+        {
+            slashEffect.transform.rotation = playerModel.rotation;
+        }
+
+        if (Input.GetKeyDown(slashKey) && readyToAttack)
+        {
+            ActivateSlashEffect();
         }
 
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
@@ -157,5 +185,50 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }
+
+    private void ActivateSlashEffect()
+    {
+        if (slashEffect != null && orientation != null)
+        {
+            // Calculate the position of the slash effect in front of the player
+            Vector3 slashPosition = transform.position + orientation.forward * 2f; // Adjust 2f as needed for distance
+
+            // Set the position of the slash effect
+            slashEffect.transform.position = slashPosition;
+
+            // Set the rotation of the slash effect to match the player's orientation
+            slashEffect.transform.rotation = Quaternion.LookRotation(orientation.forward);
+
+            // Activate the slash effect
+            slashEffect.SetActive(true);
+            Debug.Log("Slash effect activated!");
+
+            // Optionally, you can deactivate the slash effect after a certain duration
+            Invoke(nameof(DeactivateSlashEffect), 0.5f); // Deactivates after 0.5 seconds, adjust as needed
+
+            // Set the cooldown
+            readyToAttack = false;
+            nextAttackTime = Time.time + attackCooldown;
+            Invoke(nameof(ResetAttack), attackCooldown);
+        }
+        else
+        {
+            Debug.LogError("Slash effect or orientation transform not assigned!");
+        }
+    }
+
+    private void DeactivateSlashEffect()
+    {
+        if (slashEffect != null)
+        {
+            slashEffect.SetActive(false);
+            Debug.Log("Slash effect deactivated!");
+        }
+    }
+
+    private void ResetAttack()
+    {
+        readyToAttack = true;
     }
 }
