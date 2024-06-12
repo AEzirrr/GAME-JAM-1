@@ -27,7 +27,7 @@ public class ObjectPooling : MonoBehaviour
 
     public GameObject GetPooledObject()
     {
-        for (int i = 0; i < amountToPool; i++)
+        for (int i = 0; i < pooledObjects.Count; i++)
         {
             if (!pooledObjects[i].activeInHierarchy)
             {
@@ -40,6 +40,5 @@ public class ObjectPooling : MonoBehaviour
     public void ReturnToPool(GameObject obj)
     {
         obj.SetActive(false);
-        pooledObjects.Add(obj);
     }
 }

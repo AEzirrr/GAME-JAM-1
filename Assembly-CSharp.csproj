@@ -63,60 +63,87 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\ViewHandler\Popups\NotificationDialog.cs" />
     <Compile Include="Assets\Scripts\ViewHandler\View.cs" />
+    <Compile Include="Assets\Scripts\AnimationSlowDown.cs" />
     <Compile Include="Assets\Scripts\EnemyController.cs" />
     <Compile Include="Assets\Scripts\LoadManager\LoadManager.cs" />
-    <Compile Include="Assets\Scripts\Views\BasicHudScreen.cs" />
     <Compile Include="Assets\Scripts\CubePooling.cs" />
+    <Compile Include="Assets\Scripts\Views\BasicHudScreen.cs" />
     <Compile Include="Assets\Scripts\ViewHandler\BlackOverlay.cs" />
+    <Compile Include="Assets\UI ELEMENTS\HealthBar.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\ViewHandler\Popups\TwoChoiceDialog.cs" />
-    <Compile Include="Assets\PlayerMovement.cs" />
     <Compile Include="Assets\Prefabs\BrokenVector\LowPolyDungeon\Demo Scenes\ScreenshotMaker.cs" />
     <Compile Include="Assets\Scripts\ViewHandler\ViewNames.cs" />
     <Compile Include="Assets\Scripts\ViewHandler\Popups\TimedDialog.cs" />
     <Compile Include="Assets\Scripts\LoadManager\SceneNames.cs" />
     <Compile Include="Assets\Scripts\Broadcasting\EventNames.cs" />
     <Compile Include="Assets\Scripts\ViewHandler\Popups\DialogInterface.cs" />
-    <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\ViewHandler\ViewAnimation\IViewAnimation.cs" />
     <Compile Include="Assets\Scripts\ObjectPooling.cs" />
     <Compile Include="Assets\Scripts\RootsDestroyer.cs" />
+    <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\ViewHandler\ViewAnimation\DOViewAnimation.cs" />
     <Compile Include="Assets\Scripts\RootsChase.cs" />
     <Compile Include="Assets\Scripts\CubeDestroyer.cs" />
     <Compile Include="Assets\ThirdPersonCam.cs" />
+    <Compile Include="Assets\Scripts\EnemySpawner.cs" />
     <Compile Include="Assets\NewBehaviourScript.cs" />
     <Compile Include="Assets\Scripts\ViewHandler\ViewHandler.cs" />
     <Compile Include="Assets\Scripts\Broadcasting\EventBroadcaster.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Prefabs\BrokenVector\LowPolyDungeon\Demo Scenes\MouseCamLook.cs" />
+    <Compile Include="Assets\UI ELEMENTS\MainMenuUI.cs" />
     <Compile Include="Assets\Scripts\ViewHandler\Popups\DialogBuilder.cs" />
     <Compile Include="Assets\Scripts\ViewHandler\ViewAnimation.cs" />
     <Compile Include="Assets\Scripts\Broadcasting\Parameters.cs" />
     <Compile Include="Assets\Scripts\Broadcasting\ObserverList.cs" />
     <Compile Include="Assets\SFX\SFXManager.cs" />
     <Compile Include="Assets\Scripts\ViewHandler\NullScreen.cs" />
+    <Compile Include="Assets\Scripts\PlayerStats.cs" />
     <Compile Include="Assets\Scripts\CubeAutoDestroy.cs" />
     <Compile Include="Assets\Prefabs\LowPolyWater_Pack\Scripts\LowPolyWater.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\DOTween\DOTween46.xml" />
     <None Include="Assets\Prefabs\WoodsLifestyle\TextureSystem.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\DOTween\DOTween.dll" />
     <None Include="Assets\DOTween\DOTween43.xml" />
     <None Include="Assets\DOTween\DOTween46.dll" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\DOTween\DOTween43.dll" />
     <None Include="Assets\Prefabs\LowPolyWater_Pack\Shaders\WaterShaded.shader" />
     <None Include="Assets\DOTween\DOTween.XML" />
+    <None Include="Assets\TextMesh Pro\Shaders\SDFFunctions.hlsl" />
     <None Include="Assets\Prefabs\WoodsLifestyle\NOTES.txt" />
     <None Include="Assets\DOTween\DOTween50.xml" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\Prefabs\LowPolyWater_Pack\LowPoly Island\Credits.txt" />
+    <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\DOTween\readme.txt" />
     <None Include="Assets\DOTween\DOTween50.dll" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
     <None Include="Assets\Prefabs\WoodsLifestyle\VERSION.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\Imported\PBS Materials Variety Pack\readme.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\Prefabs\BrokenVector\LowPolyTreePack\README.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\LowPolyAlienWorld\Documentation.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -1115,10 +1142,6 @@
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Core.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.AdaptivePerformance">
-      <HintPath>Library\ScriptAssemblies\Unity.AdaptivePerformance.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.AI.Navigation.Updater">
       <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.Updater.dll</HintPath>
       <Private>False</Private>
@@ -1131,8 +1154,16 @@
       <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.AdaptivePerformance">
+      <HintPath>Library\ScriptAssemblies\Unity.AdaptivePerformance.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.VisualScripting.Flow.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Autodesk.Fbx.Editor">
+      <HintPath>Library\ScriptAssemblies\Autodesk.Fbx.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
@@ -1195,8 +1226,12 @@
       <HintPath>Library\ScriptAssemblies\Unity.AdaptivePerformance.Simulator.Extension.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.AdaptivePerformance.Profiler.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.AdaptivePerformance.Profiler.Editor.dll</HintPath>
+    <Reference Include="Unity.Formats.Fbx.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.Formats.Fbx.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.AI.Navigation.Editor.ConversionSystem">
+      <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Mobile.AndroidLogcat.Editor">
@@ -1211,8 +1246,16 @@
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.AI.Navigation.Editor.ConversionSystem">
-      <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll</HintPath>
+    <Reference Include="Unity.Formats.Fbx.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Formats.Fbx.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Autodesk.Fbx">
+      <HintPath>Library\ScriptAssemblies\Autodesk.Fbx.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.AdaptivePerformance.Profiler.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.AdaptivePerformance.Profiler.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualStudio.Editor">

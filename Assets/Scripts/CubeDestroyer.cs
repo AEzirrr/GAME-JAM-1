@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class CubeDestroyer : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+  /*  private void Start()
     {
-        // Check if the collider that triggered this event is the player's slash effect
-        if (other.gameObject.CompareTag("SlashEffect"))
-        {
-            DestroyCube();
-        }
+        // Start the coroutine to destroy the cube after 10 seconds
+        StartCoroutine(DeactivateTimer(10f));
     }
 
-    private void DestroyCube()
+
+    private IEnumerator DeactivateTimer(float time)
     {
-        Destroy(gameObject);
-    }
+        // Wait for the specified amount of time
+        yield return new WaitForSeconds(time);
+
+        // Destroy the cube after the time has passed
+        this.gameObject.SetActive(false);
+    } */
 }
