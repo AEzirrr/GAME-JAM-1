@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\CubeDestroyer.cs" />
     <Compile Include="Assets\ThirdPersonCam.cs" />
     <Compile Include="Assets\Scripts\EnemySpawner.cs" />
+    <Compile Include="Assets\UI ELEMENTS\ChangeScene.cs" />
     <Compile Include="Assets\NewBehaviourScript.cs" />
     <Compile Include="Assets\Scripts\ViewHandler\ViewHandler.cs" />
     <Compile Include="Assets\Scripts\Broadcasting\EventBroadcaster.cs" />

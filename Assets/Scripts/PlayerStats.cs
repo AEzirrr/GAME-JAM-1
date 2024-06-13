@@ -38,8 +38,15 @@ public class PlayerStats : MonoBehaviour
         int damage = parameters.GetIntExtra(DAMAGE_VALUE, 1);
 
         currentHealth -= damage;
-
         healthBar.SetHealth(currentHealth);
+
+        if (currentHealth <= 0)
+        {
+            Debug.Log("Daed");
+            EventBroadcaster.Instance.PostEvent(EventNames.GameJam_Events.GAME_OVER, parameters);
+        }
+
+        
     }
 
     void AddScore(Parameters parameters)
