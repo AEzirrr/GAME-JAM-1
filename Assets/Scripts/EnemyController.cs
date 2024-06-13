@@ -15,13 +15,12 @@ public class EnemyController : MonoBehaviour
     public LayerMask whatIsGround;
 
     [SerializeField] private AudioSource rumblingSFX;
-    public float damageInterval = 1.0f; // Interval in seconds between each damage application
+    public float damageInterval = 0.01f; 
 
-    private bool isDamaging = false; // Flag to track if the enemy is currently damaging the player
+    private bool isDamaging = false; 
 
     void Start()
     {
-        // Find the player GameObject by tag and get its transform
         GameObject playerObject = GameObject.FindWithTag("Player");
         if (playerObject != null)
         {
@@ -38,11 +37,9 @@ public class EnemyController : MonoBehaviour
     {
         if (player != null)
         {
-            // Set the destination of the NavMeshAgent to the player's position
             enemy.SetDestination(player.position);
         }
 
-        // Toggle the rumbling sound effect based on the speed
         if (speed > 1)
         {
             rumblingSFX.enabled = true;
@@ -53,15 +50,24 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        // Check if the collider that triggered this event is the player's slash effect
+        if (other.gameObject.CompareTag("SlashEffect"))
+        {
+            StopAllCoroutines();
+            this.gameObject.SetActive(false);
+            Parameters parameters = new Parameters();
+            EventBroadcaster.Instance.PostEvent(EventNames.GameJam_Events.ADD_SCORE, parameters);
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (!isDamaging)
-            {
-                isDamaging = true;
-                StartCoroutine(ApplyDamageOverTime(collision.gameObject));
-            }
+            isDamaging = true;
+            StartCoroutine(ApplyDamageOverTime(collision.gameObject));
         }
     }
 

@@ -53,7 +53,10 @@ public class EventNames {
 
 	public class GameJam_Events{
         public const string ON_DAMAGE = "ON_DAMAGE";
-		public const string ADD_SCORE = "ADD_SCORE";
+		public const string ON_MEDKIT = "ON_MEDKIT";
+        public const string ON_ADRENALINE = "ON_ADRENALINE";
+        public const string ON_SCORE_MULTIPLIER = "ON_SCORE_MULTIPLIER";
+        public const string ADD_SCORE = "ADD_SCORE";
 		public const string GAME_OVER = "GAME_OVER";
 
     }

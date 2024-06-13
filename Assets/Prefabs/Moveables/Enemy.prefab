@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8340192030727839069}
   - component: {fileID: 5051158195877920117}
   - component: {fileID: 8117737026330324204}
-  - component: {fileID: 6263763292099290299}
   - component: {fileID: 3543089098308816134}
   - component: {fileID: 8416346872990346429}
   m_Layer: 3
@@ -79,18 +78,6 @@ MonoBehaviour:
     m_Bits: 64
   rumblingSFX: {fileID: 8416346872990346429}
   damageInterval: 1
---- !u!114 &6263763292099290299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1008719055197737450}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71b726688dfc56e4899a19aeb482f3c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &3543089098308816134
 BoxCollider:
   m_ObjectHideFlags: 0

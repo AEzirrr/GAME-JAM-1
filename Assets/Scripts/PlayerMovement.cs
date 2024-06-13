@@ -228,20 +228,13 @@ public class PlayerMovement : MonoBehaviour
 {
     if (slashEffect != null && orientation != null && slashPosition != null)
     {
-        // Set the position of the slash effect relative to the slashPosition
         slashEffect.transform.position = slashPosition.position;
-
-        // Set the rotation of the slash effect to match the player's orientation
         slashEffect.transform.rotation = Quaternion.LookRotation(orientation.forward);
 
-        // Activate the slash effect
         slashEffect.SetActive(true);
         Debug.Log("Slash effect activated!");
 
-        // Optionally, you can deactivate the slash effect after a certain duration
-        Invoke(nameof(DeactivateSlashEffect), 0.2f); // Deactivates after 0.5 seconds, adjust as needed
-
-        // Set the cooldown
+        Invoke(nameof(DeactivateSlashEffect), 0.2f); 
         readyToAttack = false;
         nextAttackTime = Time.time + attackCooldown;
         Invoke(nameof(ResetAttack), attackCooldown);
@@ -266,6 +259,17 @@ public class PlayerMovement : MonoBehaviour
     {
         readyToAttack = true;
     }
+
+    public IEnumerator Adrenaline(float time)
+    {
+
+        float defaultSpeed = moveSpeed;
+        moveSpeed = moveSpeed + 20;
+
+        yield return new WaitForSeconds(time);
+
+        moveSpeed = defaultSpeed;
+    } 
 
 
 }

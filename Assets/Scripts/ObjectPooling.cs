@@ -7,6 +7,11 @@ public class ObjectPooling : MonoBehaviour
     public static ObjectPooling SharedInstance;
     public List<GameObject> pooledObjects;
     public GameObject objectToPool;
+
+    public GameObject medKit;
+    public GameObject adrenaline;
+    public GameObject scoreMultiplier;
+
     public int amountToPool;
 
     void Awake()
@@ -16,6 +21,11 @@ public class ObjectPooling : MonoBehaviour
 
     void Start()
     {
+        if (objectToPool == null)
+        {
+            return;
+        }
+
         pooledObjects = new List<GameObject>();
         for (int i = 0; i < amountToPool; i++)
         {
