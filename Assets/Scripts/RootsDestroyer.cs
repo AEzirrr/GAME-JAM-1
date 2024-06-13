@@ -16,5 +16,7 @@ public class RootsDestroyer : MonoBehaviour
     private void DestroyRoot()
     {
         gameObject.SetActive(false);
+        Parameters parameters = new Parameters();
+        EventBroadcaster.Instance.PostEvent(EventNames.GameJam_Events.ADD_SCORE, parameters);
     }
 }
