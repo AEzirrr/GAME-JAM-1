@@ -32770,6 +32770,7 @@ MonoBehaviour:
   healthBar: {fileID: 516409721}
   playerScore: {fileID: 975455348}
   scoreMultiplier: 0
+  playerFinalScore: {fileID: 0}
 --- !u!1 &8954871651991325381
 GameObject:
   m_ObjectHideFlags: 0

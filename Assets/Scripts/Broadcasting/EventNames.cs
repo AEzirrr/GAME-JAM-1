@@ -58,6 +58,7 @@ public class EventNames {
         public const string ON_SCORE_MULTIPLIER = "ON_SCORE_MULTIPLIER";
         public const string ADD_SCORE = "ADD_SCORE";
 		public const string GAME_OVER = "GAME_OVER";
+		public const string CREDIT_SCORE = "CREDIT_SCORE";
 
     }
 }
