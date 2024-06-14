@@ -8,7 +8,7 @@ using TMPro;
 public class MainMenuUI : MonoBehaviour
 {
     [SerializeField] private GameObject controlsPanel;
-
+    [SerializeField] private GameObject creditsScreen;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,11 +28,17 @@ public class MainMenuUI : MonoBehaviour
     public void OnXButtonClicked()
     {
         controlsPanel.SetActive(false);
+        creditsScreen.SetActive(false);
     }
 
     public void OnQuitButtonClicked()
     {
         Application.Quit();
+    }
+
+    public void OnCreditButtonClick()
+    {
+        creditsScreen.SetActive(true);
     }
 
     // Update is called once per frame

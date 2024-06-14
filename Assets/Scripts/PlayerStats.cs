@@ -6,7 +6,6 @@ public class PlayerStats : MonoBehaviour
 {
     public PlayerMovement playerMovement;
 
-
     public int maxHealth = 100;
     public int initialScore = 0;
     public int currentHealth;
@@ -52,6 +51,7 @@ public class PlayerStats : MonoBehaviour
         {
 
             EventBroadcaster.Instance.PostEvent(EventNames.GameJam_Events.GAME_OVER, parameters);
+            PlayerScoreStatic.SetPlayerScore(pScore);
         }
     }
 
@@ -83,6 +83,14 @@ public class PlayerStats : MonoBehaviour
 
     }
 
+    void CreditScore(Parameters parameters)
+    {
+        int score = parameters.GetIntExtra(ADD_SCORE, 1);
+
+        pScore += score * 100 * scoreMultiplier;
+
+        playerScore.UpdateScore(pScore);
+    }
     private IEnumerator ScoreMultiplier(float time)
     {
         scoreMultiplier = 2;
